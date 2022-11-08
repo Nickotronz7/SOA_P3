@@ -52,7 +52,7 @@ const getMonthBills = async (request, response) => {
         // Make a query to fetch the employees by month number
         const [monthBills] = await connection.query('SELECT * FROM EMPLOYEE_BILLS WHERE MONTH(creation_date) = ?',[monthNumber]);
         // Make a query to get the most bills spent departments
-        const [topDepartments] = await connection.query('SELECT department, SUM(amount) AS totalD FROM EMPLOYEE_BILLS GROUP BY department LIMIT 3');
+        const [topDepartments] = await connection.query('SELECT department, SUM(amount) AS total_department FROM EMPLOYEE_BILLS GROUP BY department ORDER BY total_department DESC LIMIT 3');
 
         // Sum the total amount of the month
         let monthTotal = 0;
