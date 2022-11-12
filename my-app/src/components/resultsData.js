@@ -18,12 +18,12 @@ class ResultsData extends Component{
     //invoked immediately after a component is mounted
     componentDidMount() {
         var host = process.env.REACT_APP_BACKEND;
-        axios.get("http://localhost:4000/bills")
+        axios.get("http://34.139.142.87:4000/api/bills/month")
         .then(response => {
             console.log(response.data)
-            this.setState({expenses: response.data})
-            //this.setState({total: response.data.total})
-            //this.setState({departments: response.data.top3Departments})
+            this.setState({expenses: response.data.bills})
+            this.setState({total: response.data.total})
+            this.setState({departments: response.data.top3Departments})
         })
         .catch(error => {
             console.log(error)
@@ -72,10 +72,11 @@ class ResultsData extends Component{
                     })}
                 </div>
                 <div className="labelesUbication">
-                    <p>
-                        <label className="labelType">Gasto Total    </label>
-                        <p className="name">{this.state.total}</p>
-                    </p>
+                    <div className="tableLike">
+                        <label className="labelType">Gasto Total: </label>
+                        <p className="name"> {this.state.total}</p>
+                        
+                    </div>
                     <p>
                         <label className="labelType">Departamentos con más gastos   </label>
                         <div className="header">
@@ -87,7 +88,7 @@ class ResultsData extends Component{
                                 return (
                                 <div key={index} className="tableLike">
                                     <p className="department">{element.department}</p>
-                                    <p className="amount">{element.totalD}</p>
+                                    <p className="amount">{element.total_department}</p>
                                 </div>
                                 );
                             })}
